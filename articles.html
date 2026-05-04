@@ -1199,6 +1199,42 @@ renderArticles();
     </div>
   </div>
 </footer>
-
+<!-- 書評PDFリンク機能 -->
+<script>
+(function() {
+  var REVIEW_PDFS = {
+    766: "",  // 2022年 BOOK INFORMATION 判例から読み解く よくわかる相続税法
+    596: "",  // 2014年 諸富徹『私たちは何のために税を払うのか』他
+    325: "",  // 2004年 格好の税金訴訟入門書
+    97:  "",  // 1994年 『配偶者控除なんかいらない』
+    15:  "",  // 1978年 北野弘久著『新財政法学・自治体財政権』
+  };
+  var titleToId = {};
+  if (typeof WORKS_DATA !== 'undefined') {
+    WORKS_DATA.forEach(function(w) {
+      if (w['種別'] === '書評') { titleToId[w['タイトル']] = w['ID']; }
+    });
+  }
+  function addPdfButtons() {
+    document.querySelectorAll('.work-item').forEach(function(item) {
+      if (item.querySelector('.review-pdf-link')) return;
+      var titleEl = item.querySelector('.work-title');
+      if (!titleEl) return;
+      var id = titleToId[titleEl.textContent.trim()];
+      if (id && REVIEW_PDFS[id]) {
+        var a = document.createElement('a');
+        a.href = REVIEW_PDFS[id];
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'work-award review-pdf-link';
+        a.textContent = '書評PDFを読む';
+        item.querySelector('.work-content').appendChild(a);
+      }
+    });
+  }
+  new MutationObserver(addPdfButtons).observe(document.body, {childList:true, subtree:true});
+  addPdfButtons();
+})();
+</script>
 </body>
 </html>
