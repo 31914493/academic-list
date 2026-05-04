@@ -1176,6 +1176,21 @@ const params = new URLSearchParams(window.location.search);
 if (params.has('q')) {
   document.getElementById('search-keyword').value = params.get('q');
 }
+if (params.has('kind')) {
+  const kindEl = document.getElementById('search-kind');
+  const v = params.get('kind');
+  if ([...kindEl.options].some(o => o.value === v)) kindEl.value = v;
+}
+if (params.has('decade')) {
+  const decadeEl = document.getElementById('search-decade');
+  const v = params.get('decade');
+  if ([...decadeEl.options].some(o => o.value === v)) decadeEl.value = v;
+}
+if (params.has('sort')) {
+  const sortEl = document.getElementById('search-sort');
+  const v = params.get('sort');
+  if ([...sortEl.options].some(o => o.value === v)) sortEl.value = v;
+}
 
 ['search-keyword', 'search-kind', 'search-decade', 'search-sort'].forEach(id => {
   const el = document.getElementById(id);
@@ -1199,15 +1214,15 @@ renderArticles();
     </div>
   </div>
 </footer>
-<!-- 書評PDFリンク機能 -->
+<!-- 書評ページリンク機能 -->
 <script>
 (function() {
-  var REVIEW_PDFS = {
-    766: "",  // 2022年 BOOK INFORMATION 判例から読み解く よくわかる相続税法
-    596: "",  // 2014年 諸富徹『私たちは何のために税を払うのか』他
-    325: "",  // 2004年 格好の税金訴訟入門書
-    97:  "",  // 1994年 『配偶者控除なんかいらない』
-    15:  "",  // 1978年 北野弘久著『新財政法学・自治体財政権』
+  var REVIEW_PAGES = {
+    766: "",                  // 2022年 BOOK INFORMATION 判例から読み解く よくわかる相続税法
+    596: "",                  // 2014年 諸富徹『私たちは何のために税を払うのか』他
+    325: "",                  // 2004年 格好の税金訴訟入門書
+    97:  "",                  // 1994年 『配偶者控除なんかいらない』
+    15:  "reviews/15.html",   // 1978年 北野弘久著『新財政法学・自治体財政権』
   };
   var titleToId = {};
   if (typeof WORKS_DATA !== 'undefined') {
@@ -1215,25 +1230,23 @@ renderArticles();
       if (w['種別'] === '書評') { titleToId[w['タイトル']] = w['ID']; }
     });
   }
-  function addPdfButtons() {
+  function addReviewButtons() {
     document.querySelectorAll('.work-item').forEach(function(item) {
-      if (item.querySelector('.review-pdf-link')) return;
+      if (item.querySelector('.review-page-link')) return;
       var titleEl = item.querySelector('.work-title');
       if (!titleEl) return;
       var id = titleToId[titleEl.textContent.trim()];
-      if (id && REVIEW_PDFS[id]) {
+      if (id && REVIEW_PAGES[id]) {
         var a = document.createElement('a');
-        a.href = REVIEW_PDFS[id];
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.className = 'work-award review-pdf-link';
-        a.textContent = '書評PDFを読む';
+        a.href = REVIEW_PAGES[id];
+        a.className = 'work-award review-page-link';
+        a.textContent = '書評を読む';
         item.querySelector('.work-content').appendChild(a);
       }
     });
   }
-  new MutationObserver(addPdfButtons).observe(document.body, {childList:true, subtree:true});
-  addPdfButtons();
+  new MutationObserver(addReviewButtons).observe(document.body, {childList:true, subtree:true});
+  addReviewButtons();
 })();
 </script>
 </body>

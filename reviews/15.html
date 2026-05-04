@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書評: 北野弘久著『新財政法学・自治体財政権』 | 三木義一 全業績</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #2d3142;
+  --ink-light: #4a4f5e;
+  --ink-lighter: #6c7085;
+  --ink-lightest: #a0a5b5;
+  --paper: #fafaf7;
+  --paper-warm: #f4f3ee;
+  --paper-cool: #f0f2f5;
+  --navy: #1e3a5f;
+  --navy-deep: #152947;
+  --navy-light: #2a4a7c;
+  --accent: #8b2332;
+  --accent-light: #a63e4e;
+  --gold: #a07c2c;
+  --gold-soft: #c4a457;
+  --rule: #d8d5ce;
+  --rule-soft: #e8e6e0;
+  --highlight: #fbf7e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Zen Kaku Gothic New", "游ゴシック", "Yu Gothic", "Noto Sans JP", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ヘッダー */
+.site-header { background: var(--navy-deep); color: var(--paper); border-bottom: 4px solid var(--gold); }
+.header-top { padding: 32px 40px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.header-top-inner { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.site-title-group a { color: inherit; text-decoration: none; display: block; }
+.site-title { font-family: "Shippori Mincho", serif; font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: 0.08em; line-height: 1.2; margin-bottom: 6px; }
+.site-title-en { font-family: "EB Garamond", serif; font-style: italic; font-size: 14px; color: var(--gold-soft); letter-spacing: 0.1em; }
+.site-header-meta { font-size: 12px; color: rgba(255,255,255,0.7); letter-spacing: 0.05em; text-align: right; line-height: 1.8; }
+.main-nav { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); }
+.nav-inner { max-width: 1240px; margin: 0 auto; display: flex; gap: 0; padding: 0 40px; overflow-x: auto; }
+.nav-inner a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 16px 24px; font-size: 14px; letter-spacing: 0.1em; font-weight: 500; transition: all 0.3s ease; border-bottom: 3px solid transparent; white-space: nowrap; }
+.nav-inner a:hover { color: var(--paper); background: rgba(255,255,255,0.06); border-bottom-color: var(--gold); }
+.nav-inner a.current { color: var(--paper); border-bottom-color: var(--gold); background: rgba(255,255,255,0.05); }
+
+/* メイン */
+main { min-height: 60vh; }
+.content-wrapper { max-width: 860px; margin: 0 auto; padding: 60px 40px; }
+
+.breadcrumb { font-family: "EB Garamond", serif; font-size: 13px; color: var(--ink-lighter); margin-bottom: 32px; letter-spacing: 0.05em; }
+.breadcrumb a { color: var(--ink-lighter); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb-separator { margin: 0 8px; color: var(--ink-lightest); }
+
+/* 記事ヘッダー */
+.review-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--navy); }
+.review-kind { display: inline-block; font-size: 11px; padding: 5px 12px; background: #4d5e6e; color: var(--paper); letter-spacing: 0.1em; font-weight: 500; margin-bottom: 18px; }
+.review-title { font-family: "Shippori Mincho", serif; font-size: clamp(24px, 3.4vw, 32px); font-weight: 700; line-height: 1.5; color: var(--ink); margin-bottom: 18px; }
+.review-meta { display: grid; grid-template-columns: 90px 1fr; gap: 8px 20px; font-size: 14px; color: var(--ink-light); margin-top: 20px; }
+.review-meta dt { color: var(--ink-lighter); font-size: 13px; letter-spacing: 0.05em; }
+.review-meta dd { color: var(--ink); }
+.review-author { margin-top: 16px; font-family: "Shippori Mincho", serif; font-size: 16px; color: var(--ink); }
+.review-author-en { font-family: "EB Garamond", serif; font-style: italic; font-size: 13px; color: var(--ink-lighter); margin-left: 8px; letter-spacing: 0.05em; }
+
+/* 本文 */
+.review-body { font-family: "Shippori Mincho", "游明朝", "Yu Mincho", serif; font-size: 17px; line-height: 2.0; color: var(--ink); }
+.review-body > p { margin-bottom: 1.4em; text-indent: 1em; }
+.review-body > p:first-child { text-indent: 0; }
+.review-body .section-num { font-weight: 600; color: var(--navy); margin-right: 0.4em; }
+
+/* 目次ボックス */
+.review-toc { background: var(--paper-warm); border-left: 3px solid var(--navy); padding: 24px 28px; margin: 32px 0; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 14px; line-height: 1.9; }
+.review-toc-title { font-family: "Shippori Mincho", serif; font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.05em; }
+.review-toc dl { margin: 0; }
+.review-toc dt { font-weight: 600; color: var(--ink); margin-top: 10px; }
+.review-toc dt:first-child { margin-top: 0; }
+.review-toc dd { color: var(--ink-light); margin-left: 1.2em; padding-left: 0.4em; }
+
+/* 注意書き */
+.review-notice { background: #fff8e1; border: 1px solid #e5d28a; padding: 14px 18px; margin: 24px 0 32px; font-size: 13px; line-height: 1.7; color: #6b5821; font-family: "Zen Kaku Gothic New", sans-serif; }
+.review-notice strong { color: #8b6914; }
+
+/* 注 */
+.review-notes { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: "Zen Kaku Gothic New", sans-serif; font-size: 13px; line-height: 1.9; color: var(--ink-light); }
+.review-notes-title { font-family: "Shippori Mincho", serif; font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 14px; }
+.review-notes ol { padding-left: 1.6em; }
+.review-notes li { margin-bottom: 8px; }
+
+/* 末尾署名 */
+.review-signature { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: "Shippori Mincho", serif; font-size: 14px; color: var(--ink-light); text-align: right; line-height: 2; }
+
+/* 戻るリンク */
+.back-link { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--rule-soft); }
+.back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--navy); text-decoration: none; font-size: 14px; font-family: "Zen Kaku Gothic New", sans-serif; transition: color 0.2s; }
+.back-link a:hover { color: var(--accent); }
+.back-link a::before { content: "←"; font-family: "EB Garamond", serif; font-size: 16px; }
+
+/* フッター */
+footer { background: var(--navy-deep); color: var(--paper); padding: 48px 40px; margin-top: 100px; border-top: 4px solid var(--gold); }
+.footer-inner { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+.footer-title { font-family: "Shippori Mincho", serif; font-size: 18px; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 6px; }
+.footer-sub { font-family: "EB Garamond", serif; font-style: italic; font-size: 13px; color: rgba(250, 250, 247, 0.6); letter-spacing: 0.05em; }
+.footer-meta { font-size: 12px; color: rgba(250, 250, 247, 0.5); text-align: right; line-height: 1.8; }
+
+@media (max-width: 768px) {
+  .header-top { padding: 24px 20px 16px; }
+  .header-top-inner { flex-direction: column; align-items: flex-start; }
+  .site-header-meta { text-align: left; }
+  .nav-inner { padding: 0 20px; }
+  .nav-inner a { padding: 14px 16px; font-size: 13px; }
+  .content-wrapper { padding: 40px 20px; }
+  .review-body { font-size: 16px; line-height: 1.95; }
+  .review-meta { grid-template-columns: 1fr; gap: 4px; }
+  .review-meta dt { margin-top: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-top-inner">
+      <div class="site-title-group">
+        <a href="../index.html">
+          <div class="site-title">三木義一 全業績</div>
+          <div class="site-title-en">MIKI Yoshikazu — Complete Works</div>
+        </a>
+      </div>
+      <div class="site-header-meta">
+        税法学者・弁護士<br>
+        青山学院大学名誉教授(第18代学長)
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="../profile.html">プロフィール</a>
+      <a href="../books.html">著書</a>
+      <a href="../articles.html" class="current">学術論文</a>
+      <a href="../opinions.html">意見書</a>
+      <a href="../columns.html">新聞連載</a>
+      <a href="../misc.html">その他</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+<div class="content-wrapper">
+
+  <div class="breadcrumb">
+    <a href="../index.html">HOME</a>
+    <span class="breadcrumb-separator">/</span>
+    <a href="../articles.html">学術論文</a>
+    <span class="breadcrumb-separator">/</span>
+    <a href="../articles.html?kind=書評">書評</a>
+    <span class="breadcrumb-separator">/</span>
+    新財政法学・自治体財政権
+  </div>
+
+  <article>
+    <header class="review-header">
+      <span class="review-kind">書評</span>
+      <h1 class="review-title">北野弘久著『新財政法学・自治体財政権』</h1>
+      <dl class="review-meta">
+        <dt>著者</dt><dd>北野 弘久</dd>
+        <dt>出版</dt><dd>勁草書房（一九七七年）</dd>
+        <dt>掲載</dt><dd>『法の科学』第6号 一七四〜一七九頁（一九七八年九月）</dd>
+      </dl>
+      <div class="review-author">
+        三木 義一<span class="review-author-en">MIKI Yoshikazu</span>
+        <span style="margin-left: 12px; font-size: 13px; color: var(--ink-lighter);">（当時：日本大学）</span>
+      </div>
+    </header>
+
+    <div class="review-notice">
+      <strong>※本テキストは原典スキャンPDFから書き起こした下書きです。</strong>
+      縦書き和文・古い印刷物の特性上、漢字や数値に誤認識が残っている可能性があります。
+      引用条文番号・判決名・固有名詞は原典で要校正です。
+    </div>
+
+    <div class="review-body">
+
+      <p><span class="section-num">一</span>本書は北野教授がここ数年精力的に発表されてこられたもののうちの、「新財政法学」の提唱に係る諸論文と自治体財政権の法理に関する諸論文を収録されたものである。これらの諸論文は教授が従来『税法の基本原理』（中央経済社、一九六一）、『現代税法の構造』（勁草書房、一九七二）、『税法の基本問題』（成文堂、一九七二）等において示されてきた税法学理論を「新たなより広い視角から」展開させること（序文一頁）を目的として書かれたものである。</p>
+
+      <p>なお、資料として大牟田訴訟のための鑑定書等も収録されている。本書に収録されている諸論文のすべてに触れることは不可能でもあるので、まず本書の内容を目次によって紹介しておく必要があろう。</p>
+
+      <div class="review-toc">
+        <div class="review-toc-title">目次（評者まとめ）</div>
+        <dl>
+          <dt>第一篇　納税者基本権・新財政法学の提唱</dt>
+          <dd>第一章　現代財政学の課題</dd>
+          <dd>第二章　現代財政学と租税法主義論</dd>
+          <dd>第三章　財政民主主義の再構成</dd>
+          <dd>第四章　財政民主主義の具体的研究</dd>
+          <dd>第五章　憲法秩序と税制</dd>
+          <dd>第六章　税法体系と税法学</dd>
+          <dd>第七章　従来の税法学への反省</dd>
+          <dd>第八章　納税者の権利</dd>
+          <dd>第九章　租税立法過程の民主化と税制調査会</dd>
+          <dd>第一〇章　国民税制調査会と意見書</dd>
+          <dd>第一一章　ロッキード事件と納税者</dd>
+
+          <dt>第二篇　自治体財政権の法理</dt>
+          <dd>第一章　自治体財政権の憲法的基礎</dd>
+          <dd>第二章　自治体財政権の具体的研究</dd>
+          <dd>第三章　自治体の課税権と不均一課税</dd>
+          <dd>第四章　自治体財政権と固定資産税</dd>
+          <dd>第五章　事業主報酬控除制度と事業税</dd>
+          <dd>第六章　自治体財政権と娯楽施設（ぱちんこ）利用税</dd>
+          <dd>第七章　政治団体に対する補助金と自治体財政</dd>
+
+          <dt>第三篇　納税者の人権と闘争</dt>
+          <dd>第一章　大島サラリーマン税金訴訟判決の検討</dd>
+          <dd>第二章　総評のサラリーマン確定申告闘争の意義</dd>
+          <dd>第三章　郵便貯金目減り訴訟の憲法的評価</dd>
+        </dl>
+      </div>
+
+      <p>以上のうち、とくに重要と思われる論点を、それにより我々後進に提起された課題も念頭におきつつ、紹介することによって、書評の責を果たすことにしたい。</p>
+
+      <p><span class="section-num">二</span>さて、教授は本書第一篇で「新財政法学」の必要性を再三強調されている。「新財政法学」という名称自体に従来の税法学に対する強い批判が含まれていることは明らかであろう。とりわけ、従来の税法学がもっぱら財政管理作用法との側面からのみ問題を処理し、財源を負担する国民の人権との関わり方を十分に配慮していなかった点を強く意識されているように思われる。教授が、歳入歳出双方のレベルにおける納税者基本権（憲法論のレベルにおける憲法論的な集合的権利）の具体化を意図する新たな自由権・社会権の集合的権利を位置づけようとしている点は、かかる意味で十分に理解されよう。</p>
+
+      <p>また他方で、「新財政法学」の提唱には、これまで専攻対象とされてきた税法学の限界に対する反省も含まれていることに注意することが必要である。「税法学」が狭義の租税概念（租税の徴収面）を前提にしてそこでの法理論構成をいかに精緻に展開しても限界がある。一般納税者の人権をトータルにとらえるレベルからいえば右のような税法学研究の成果はあまりにも微弱であるといわなければならないであろう。なぜならそのような税法学理論によって徴収された租税が、一般納税者の生活や人権を侵害するかたちで使用される場合には、いっそう精緻な税法学理論を構成することによって狭義の租税概念のレベルで一般納税者の人権を擁護したことにすらならないからである。</p>
+
+      <p>こうした問題意識は教授の租税概念の中に最も端的に示されている。そこでは教授が従来主張されてきた「租税法律主義の実質的内容の理論」（単に形式的な租税法律主義ではなく、合理的な内容の法律のみが「租税法律主義」に組み込まれるとする理論）が、それだけでは不十分であり、租税の徴収面と使途面を統合した広義の財政民主主義の一環という視角から「租税法律主義」を再構成すべきであるとされている。その具体的内容は今後の課題とされているが、歳入予算も含めた予算の法律化（１）・歳出面での法律の留保の適用（２）等への議論と関連していることが示唆されている（第一篇第三章の三）。</p>
+
+      <p>以上のように、教授の提唱される「新財政法学」は従来の財政学・税法学に対する批判・反省を出発点とし、それ故に、租税の徴収面とその使途面の両者を統合した広義の租税概念（３）と歳入歳出の双方のレベルにおける納税者基本権をシステムの軸として展開されているが、これらの提唱は、教授自身認められているように、今後の税・財政法学研究の基本的な視点を提供するものとして、大きな意味をもつようにも思われる。</p>
+
+      <p><span class="section-num">三</span>本書第二篇においては広義の租税概念に関するものとして教授が意識されている（序文五頁）自治体財政権の法理に関する諸論文が収められている。これらの諸論文は単なる問題提起にとどまらず、教授の具体的な検討に基づく提起として、本書を契機に自治体財政権をめぐる議論が一層活発に展開されることが期待される。</p>
+
+      <p>自治体の財政権は憲法上自治体に附与された一種の固有権として解され、しかもここにいう固有権とは憲法学で従来展開されている超実定法的な意味での固有権説とは異なり、伝来説に対立する制度的保障説を前提にしたうえで実定憲法上限定された意味での固有の財政権が自治体に附与されているとされる（一七三頁）。このことから、地方税法は本来、租税条例主義としての性格を強く有していることになる。それ故、住民は地方税法によって直接にではなく当該自治体の条例によってはじめて納税義務を負うことになり、国の地方税法の規定が当該自治体の固有権としての財政権を侵害すると考えられる場合には当該法律の規定は違憲であり、自治体は違憲の法律の規定に拘束されずに条例を制定しうる。</p>
+
+      <p>教授は以上の基本的な視点に基づき、国有資産等所在市町村交付金および納付金等の細かい問題にもふれつつ、自治体の財政権侵害のパターンを、本来自治体に与えるべき財源を与えないというかたちでの財政権侵害と、本来国が負担すべきものを自治体に負担させるかたちでの財政権侵害との二つのパターンに分類し、それらに対する自治体側の対応として、東京都の不均一課税、大牟田訴訟、摂津訴訟をサポートするための解釈論を展開している。</p>
+
+      <p>まず、第一の自治体に与えるべき財源を与えていない問題として、租税法学上展開されてきた債務関係説の応用がある。構成要件の充足により自動的に租税の納付義務が発生するという一般的な見解に立てば、行政庁の確定判断と無関係に租税債権は成立しているから、税法上、納税義務がいまだ確定していなくともすでに成立している場合には、交付決定という確認行為が必要とされる場合があるとともに、保全差押えを認めることがあるように、繊細な解釈論上の試みは今後の自治体の不均一課税にとって重要な指針となろう。</p>
+
+      <p>第二に、いわゆる超過負担問題等で争われている広義の租税概念に関する諸法理の応用がある。摂津訴訟で争われた東京都の不均一課税、大牟田訴訟（巨大企業に対する非課税措置〔地方税法六条一項〕により多額の減収を余儀なくされている大牟田市が提起した訴訟）等において、教授は主として憲法論のレベルから、巨大企業に対する非課税措置は、租税法律主義違反、租税平等原則違反、応能負担原則違反、自治体の財政権侵害として違憲となるという主張を展開している。<span style="color: var(--ink-lighter); font-size: 0.9em;">〔※本段落は判読困難箇所が多く、原典要確認〕</span></p>
+
+      <p><span class="section-num">四</span>本書第二篇第四章では、固定資産税の人権化論および地方税法三四九条にいう「価格」を「利用価格」（収益還元価格）として解釈すべきであるとする解釈論が提唱されている。前者は、主として財政学的見地から従来唱えられていた「国税＝応能課税、地方税＝応益課税」という公式に憲法論のレベルから反省を促し、地方税においても人権論、つまり憲法上の各原則が反映されるべきと主張するものである。かかる観点から、応能原則的に把握できる限り土地所有を生存権的所有と資産的土地所有とに分類し、各類型に応じた課税標準・税率等を規定すべきだと提唱したものである。応能原則を反映しなかった従来の固定資産税のあり方への根本的な批判として、また土地価格の異常な高騰や農地の宅地並み課税によって生じた生存権的土地所有者・農地所有者の置かれている状況に対する真摯な批判として、極めて重要な提起となっている。<span style="color: var(--ink-lighter); font-size: 0.9em;">〔※本段落は判読困難箇所多数、原典要確認〕</span></p>
+
+      <p>以上のように、本書第二篇においては、地方税・財政に関する諸問題が論じられている。本書を契機として、これらの分野における議論の活発化が期待される。</p>
+
+      <p><span class="section-num">五</span>第二篇第五章では「みなし法人課税制度」をめぐる従来の検討に対する積極的評価がなされている。本制度は青色申告制度との関連において重要な課題と思われる。<span style="color: var(--ink-lighter); font-size: 0.9em;">〔※本段落は判読困難箇所多数、原典要確認〕</span></p>
+
+      <p>郵便貯金目減り訴訟においては、郵便貯金法二条一項の利率は形式的な名目的元本債権額に応用されるのではなく、インフレ分を含めた実質的な元本債権額に乗せられるべきであり、それが現代法的理解であり、かつ合憲的な解釈であるという主張をされている。ただ、「現代法」という概念を解釈論にストレートに応用しうるのか、という疑問は別として、現代資本主義の構造的特質自体がインフレを恒常的にもたらすので、実質的債権額の保障というインフレ分のもたらす効果は、いわゆる住宅ローンなどへの影響も考慮しなければならないように思われる。もっとも、こうした点は、教授の解釈論の常識性を批判するものでも何ともない。<span style="color: var(--ink-lighter); font-size: 0.9em;">〔※本段落は判読困難箇所多数、原典要確認〕</span></p>
+
+      <p><span class="section-num">六</span>本書第三篇では、大島サラリーマン訴訟、総評のサラリーマン確定申告闘争、郵便貯金目減り訴訟の憲法的評価という、教授がこれまで実践的にも関わってこられた重要訴訟について論じられている。<span style="color: var(--ink-lighter); font-size: 0.9em;">〔※本段落は判読困難。原典要確認〕</span></p>
+
+    </div>
+
+    <div class="review-notes">
+      <div class="review-notes-title">注</div>
+      <ol>
+        <li>歳入予算も含めた予算の法律化に関する議論については、北野・前掲『現代税法の構造』を参照。<span style="color: var(--ink-lighter);">〔※注釈本文は判読困難箇所多数、原典要確認〕</span></li>
+        <li>歳出面での法律の留保の適用について。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+        <li>広義の租税概念に含めて論じられている各種社会保険料、公共料金等についても、教授は今後広汎な租税概念に基づくよう主張されている。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+        <li><span style="color: var(--ink-lighter);">〔注4は判読困難。原典要確認〕</span></li>
+        <li><span style="color: var(--ink-lighter);">〔注5は判読困難。原典要確認〕</span></li>
+        <li>独自の一部学者によって主張されているように、合法性のコントロールに限定することも考えられる。地方交付税の問題も重要な課題として位置づけられよう。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+        <li>租税条例主義を憲法上の原則として強調する場合、例えば、西独の市町村税法のように、市町村独自の立法権を得るような形式は、それ自体違憲であると説きうる可能性が出てくるように思われる。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+        <li>たとえば、イギリスでは居住用財産に対する課税標準について、それが具体性を欠き、恣意的で不公平との批判がある。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+        <li>関先秀治「北野税法学の新展開」『税法新報』一〇一号一三頁ほか。<span style="color: var(--ink-lighter);">〔※論者名・誌名要校正〕</span></li>
+        <li>研究が立ち遅れているが、税法の領域における法社会学的な研究素材の一つとして、インフレーションによる名目所得の増大とそれに伴う租税負担の累進的増大が、租税法律主義の実質的意味での空洞化の問題として重要な課題となろう。<span style="color: var(--ink-lighter);">〔※原典要確認〕</span></li>
+      </ol>
+    </div>
+
+    <div class="review-signature">
+      （三木義一・日本大学）<br>
+      <span style="font-size: 12px; color: var(--ink-lighter);">『法の science（法の科学）』第6号 一七四〜一七九頁（一九七八年九月）</span>
+    </div>
+
+    <div class="back-link">
+      <a href="../articles.html?kind=書評">書評一覧へ戻る</a>
+    </div>
+  </article>
+
+</div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">三木義一 全業績</div>
+      <div class="footer-sub">MIKI Yoshikazu — Complete Works</div>
+    </div>
+    <div class="footer-meta">
+      A Living Record of Japanese Tax Law Scholarship<br>
+      Established 2026
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
