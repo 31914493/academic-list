@@ -976,6 +976,205 @@ footer {
   .hero-message-text { font-size: 17px; line-height: 2.0; }
 }
 
+/* =======================================================
+   意見書ページ: 索引・検索
+   ======================================================= */
+.opinion-finder {
+  background: white;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--gold);
+  padding: 28px 32px;
+  margin: 32px 0 40px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.opinion-finder-title {
+  font-family: "Shippori Mincho", serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.opinion-finder-lead {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.opinion-filter-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.opinion-index-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 13px;
+  color: var(--ink-lighter);
+}
+
+.opinion-index-meta strong {
+  font-family: "EB Garamond", serif;
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 4px;
+}
+
+.opinion-index-list {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+
+.opinion-index-card {
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 132px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.opinion-index-card:hover {
+  border-color: var(--navy);
+  background: var(--highlight);
+  box-shadow: 0 6px 18px rgba(30,58,95,0.08);
+}
+
+.opinion-index-case {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+
+.opinion-index-title {
+  font-family: "Shippori Mincho", serif;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.opinion-index-summary {
+  font-size: 13px;
+  color: var(--ink-light);
+  line-height: 1.7;
+}
+
+.opinion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.opinion-tag {
+  font-size: 11px;
+  color: var(--ink-light);
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  padding: 3px 8px;
+  letter-spacing: 0.05em;
+}
+
+.opinion-open-button {
+  border: 1px solid var(--navy);
+  background: var(--navy);
+  color: var(--paper);
+  font-family: "Shippori Mincho", serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  padding: 10px 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.opinion-open-button:hover,
+.opinion-open-button:focus {
+  background: var(--navy-light);
+  border-color: var(--navy-light);
+  outline: none;
+}
+
+.opinion-empty {
+  display: none;
+  background: var(--paper-warm);
+  border: 1px dashed var(--rule);
+  color: var(--ink-light);
+  padding: 24px;
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.opinion-detail-heading {
+  border-top: 1px solid var(--rule);
+  padding-top: 28px;
+  margin: 36px 0 0;
+}
+
+.opinion-detail-heading .subsection-title {
+  margin-bottom: 4px;
+}
+
+.opinion-detail {
+  scroll-margin-top: 90px;
+}
+
+.opinion-detail[hidden] {
+  display: none;
+}
+
+.opinion-detail.is-active {
+  outline: 3px solid rgba(160,124,44,0.16);
+}
+
+@media (max-width: 900px) {
+  .opinion-filter-row,
+  .opinion-index-card {
+    grid-template-columns: 1fr;
+  }
+
+  .opinion-index-card {
+    gap: 12px;
+  }
+
+  .opinion-open-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title-en {
+    overflow-wrap: anywhere;
+  }
+
+  .opinion-finder,
+  .opinion-index-card {
+    padding: 22px 20px;
+  }
+
+  .opinion-index-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1034,7 +1233,103 @@ footer {
     公開にあたっては依頼者の匿名化等、慎重な手続を経て行う。
   </div>
 
-  <article class="opinion-card" style="background:white; border:1px solid var(--rule); margin-top:48px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+  <section class="opinion-finder" aria-labelledby="opinion-finder-title">
+    <h2 id="opinion-finder-title" class="opinion-finder-title">意見書索引</h2>
+    <p class="opinion-finder-lead">
+      タイトル、争点、税目、手続、結果で絞り込み、必要な意見書だけを開いて確認できます。
+    </p>
+    <div class="opinion-filter-row">
+      <div>
+        <label class="search-label" for="opinion-search">キーワード</label>
+        <input id="opinion-search" type="text" placeholder="例: 住所、青色申告、和解、給与、一時所得">
+      </div>
+      <div>
+        <label class="search-label" for="opinion-tax-filter">税目</label>
+        <select id="opinion-tax-filter">
+          <option value="">すべて</option>
+          <option value="所得税">所得税</option>
+        </select>
+      </div>
+      <div>
+        <label class="search-label" for="opinion-procedure-filter">手続</label>
+        <select id="opinion-procedure-filter">
+          <option value="">すべて</option>
+          <option value="審査請求">審査請求</option>
+          <option value="意見書提出">意見書提出</option>
+        </select>
+      </div>
+      <div>
+        <label class="search-label" for="opinion-status-filter">公開状態</label>
+        <select id="opinion-status-filter">
+          <option value="">すべて</option>
+          <option value="PDF公開あり">PDF公開あり</option>
+          <option value="準備中">準備中</option>
+        </select>
+      </div>
+    </div>
+    <div class="opinion-index-meta">
+      <div>該当 <strong id="opinion-result-count">3</strong> 件</div>
+      <div id="opinion-selected-label">下の一覧からタイトルを選ぶと、詳細が開きます。</div>
+    </div>
+  </section>
+
+  <section class="opinion-index-list" id="opinion-index-list" aria-label="意見書一覧">
+    <article class="opinion-index-card" data-target="opinion-case-001" data-tax="所得税" data-procedure="審査請求" data-status="準備中" data-search="case no 001 2009 2010 青色申告承認取消処分審査請求事件 不当 処分取消し 裁決 国税不服審判所 所得税 審査請求 青色申告 帳簿 税務調査 事務運営指針 理由附記 国税通則法">
+      <div class="opinion-index-case">Case No. 001</div>
+      <div>
+        <h3 class="opinion-index-title">青色申告承認取消処分審査請求事件</h3>
+        <p class="opinion-index-summary">「不当」を理由とした青色申告承認取消処分の取消裁決。税務調査、帳簿提示、理由附記が主要争点。</p>
+        <div class="opinion-tags">
+          <span class="opinion-tag">2009-2010年</span>
+          <span class="opinion-tag">所得税</span>
+          <span class="opinion-tag">審査請求</span>
+          <span class="opinion-tag">準備中</span>
+        </div>
+      </div>
+      <button class="opinion-open-button" type="button">詳細を開く</button>
+    </article>
+
+    <article class="opinion-index-card" data-target="opinion-case-002" data-tax="所得税" data-procedure="審査請求" data-status="PDF公開あり" data-search="case no 002 2009 住所はどこだ 非居住者判定 逆転裁決 国税不服審判所 所得税 審査請求 フィリピン 日本の居住者 生活の本拠 所得税法 住所 家族 子ども 事業参与">
+      <div class="opinion-index-case">Case No. 002</div>
+      <div>
+        <h3 class="opinion-index-title">住所はどこだ。</h3>
+        <p class="opinion-index-summary">フィリピンでの事業運営・滞在実態を軸に、所得税法上の住所と非居住者判定を争った逆転裁決。</p>
+        <div class="opinion-tags">
+          <span class="opinion-tag">2009年</span>
+          <span class="opinion-tag">所得税</span>
+          <span class="opinion-tag">審査請求</span>
+          <span class="opinion-tag">PDF公開あり</span>
+        </div>
+      </div>
+      <button class="opinion-open-button" type="button">詳細を開く</button>
+    </article>
+
+    <article class="opinion-index-card" data-target="opinion-case-003" data-tax="所得税" data-procedure="意見書提出" data-status="PDF公開あり" data-search="case no 003 2021 和解解決金 給与か一時か 労働紛争 解決金 所得区分 給与所得 一時所得 松任税務署 所得税 意見書提出 損害賠償金 非課税規定">
+      <div class="opinion-index-case">Case No. 003</div>
+      <div>
+        <h3 class="opinion-index-title">和解解決金　給与か一時か？</h3>
+        <p class="opinion-index-summary">労働紛争の和解解決金について、給与所得か一時所得かを争った意見書提出事案。</p>
+        <div class="opinion-tags">
+          <span class="opinion-tag">2021年</span>
+          <span class="opinion-tag">所得税</span>
+          <span class="opinion-tag">意見書提出</span>
+          <span class="opinion-tag">PDF公開あり</span>
+        </div>
+      </div>
+      <button class="opinion-open-button" type="button">詳細を開く</button>
+    </article>
+  </section>
+
+  <div class="opinion-empty" id="opinion-empty">
+    条件に合う意見書が見つかりません。キーワードや項目を変えて検索してください。
+  </div>
+
+  <section class="opinion-detail-heading" aria-live="polite">
+    <h2 class="subsection-title">詳細</h2>
+    <div class="subsection-en" id="opinion-detail-label">未選択</div>
+  </section>
+
+  <article id="opinion-case-001" class="opinion-card opinion-detail" hidden style="background:white; border:1px solid var(--rule); margin-top:24px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
     <div style="background:var(--navy-deep); color:var(--paper); padding:24px 32px;">
       <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--gold-soft); letter-spacing:0.2em; margin-bottom:8px;">Case No. 001 — 2009-2010</div>
       <h3 style="font-family:'Shippori Mincho',serif; font-size:22px; font-weight:600; line-height:1.5; margin-bottom:6px;">青色申告承認取消処分審査請求事件</h3>
@@ -1100,7 +1395,7 @@ footer {
 
    
 <!-- ===== Case No.002 ===== -->
-<article class="opinion-card" style="background:white; border:1px solid var(--rule); margin-top:48px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+<article id="opinion-case-002" class="opinion-card opinion-detail" hidden style="background:white; border:1px solid var(--rule); margin-top:24px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
   <div style="background:var(--navy-deep); color:var(--paper); padding:24px 32px;">
     <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--gold-soft); letter-spacing:0.2em; margin-bottom:8px;">Case No. 002 &mdash; 2009</div>
     <h3 style="font-family:'Shippori Mincho',serif; font-size:22px; font-weight:600; line-height:1.5; margin-bottom:6px;">住所はどこだ。</h3>
@@ -1146,7 +1441,7 @@ footer {
 </article>
 
 <!-- ===== Case No.003 ===== -->
-<article class="opinion-card" style="background:white; border:1px solid var(--rule); margin-top:48px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+<article id="opinion-case-003" class="opinion-card opinion-detail" hidden style="background:white; border:1px solid var(--rule); margin-top:24px; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
   <div style="background:var(--navy-deep); color:var(--paper); padding:24px 32px;">
     <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--gold-soft); letter-spacing:0.2em; margin-bottom:8px;">Case No. 003 &mdash; 2021</div>
     <h3 style="font-family:'Shippori Mincho',serif; font-size:22px; font-weight:600; line-height:1.5; margin-bottom:6px;">和解解決金　給与か一時か？</h3>
@@ -1212,6 +1507,100 @@ footer {
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  const searchInput = document.getElementById('opinion-search');
+  const taxFilter = document.getElementById('opinion-tax-filter');
+  const procedureFilter = document.getElementById('opinion-procedure-filter');
+  const statusFilter = document.getElementById('opinion-status-filter');
+  const cards = Array.from(document.querySelectorAll('.opinion-index-card'));
+  const details = Array.from(document.querySelectorAll('.opinion-detail'));
+  const countEl = document.getElementById('opinion-result-count');
+  const emptyEl = document.getElementById('opinion-empty');
+  const selectedEl = document.getElementById('opinion-selected-label');
+  const detailLabel = document.getElementById('opinion-detail-label');
+  let activeTargetId = '';
+
+  function normalize(value) {
+    return String(value || '').normalize('NFKC').toLowerCase();
+  }
+
+  function openOpinion(targetId, shouldScroll) {
+    const target = document.getElementById(targetId);
+    const card = cards.find(item => item.dataset.target === targetId);
+    if (!target || !card) return;
+
+    details.forEach(detail => {
+      detail.hidden = true;
+      detail.classList.remove('is-active');
+    });
+    target.hidden = false;
+    target.classList.add('is-active');
+    activeTargetId = targetId;
+
+    const title = card.querySelector('.opinion-index-title').textContent.trim();
+    selectedEl.textContent = title + 'を表示中';
+    detailLabel.textContent = title;
+
+    history.replaceState(null, '', '#' + targetId);
+
+    if (shouldScroll) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function filterOpinions() {
+    const keyword = normalize(searchInput.value);
+    const tax = taxFilter.value;
+    const procedure = procedureFilter.value;
+    const status = statusFilter.value;
+    let shown = 0;
+
+    cards.forEach(card => {
+      const matchesKeyword = !keyword || normalize(card.dataset.search).includes(keyword);
+      const matchesTax = !tax || card.dataset.tax === tax;
+      const matchesProcedure = !procedure || card.dataset.procedure === procedure;
+      const matchesStatus = !status || card.dataset.status === status;
+      const visible = matchesKeyword && matchesTax && matchesProcedure && matchesStatus;
+
+      card.style.display = visible ? '' : 'none';
+      if (visible) shown += 1;
+    });
+
+    countEl.textContent = shown;
+    emptyEl.style.display = shown ? 'none' : 'block';
+
+    const activeCard = activeTargetId ? cards.find(card => card.dataset.target === activeTargetId) : null;
+    if (activeCard && activeCard.style.display === 'none') {
+      details.forEach(detail => {
+        detail.hidden = true;
+        detail.classList.remove('is-active');
+      });
+      activeTargetId = '';
+      selectedEl.textContent = '下の一覧からタイトルを選ぶと、詳細が開きます。';
+      detailLabel.textContent = '未選択';
+    }
+  }
+
+  cards.forEach(card => {
+    const button = card.querySelector('.opinion-open-button');
+    button.addEventListener('click', () => openOpinion(card.dataset.target, true));
+  });
+
+  [searchInput, taxFilter, procedureFilter, statusFilter].forEach(control => {
+    control.addEventListener('input', filterOpinions);
+    control.addEventListener('change', filterOpinions);
+  });
+
+  filterOpinions();
+
+  const hashTarget = location.hash.replace('#', '');
+  if (hashTarget && document.getElementById(hashTarget)) {
+    openOpinion(hashTarget, false);
+  }
+})();
+</script>
 
 </body>
 </html>
