@@ -1236,7 +1236,7 @@ function renderItem(w, keyword) {
     (month ? '<span class="work-year-month">' + month + '月</span>' : '') + '</div>' +
     '<div><span class="work-kind ' + kindClass + '">' + escapeHtml(kind) + '</span></div>' +
     '<div class="work-content"><div class="work-title">' +
-    (w[\'リンク\'] ? '<a href="' + w[\'リンク\'] + '" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">' + title + '</a>' : title) + '</div>' +
+    (w['リンク'] ? '<a href="' + w['リンク'] + '" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">' + title + '</a>' : title) + '</div>' +
     (note ? '<div class="work-note">' + highlightKeyword(note, keyword) + '</div>' : '') +
     (metaParts.length ? '<div class="work-meta">' + metaParts.join('') + '</div>' : '') +
     (award ? '<div class="work-award">' + highlightKeyword(award, keyword) + '</div>' : '') +
