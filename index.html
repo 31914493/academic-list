@@ -1027,7 +1027,7 @@ footer {
       <a href="misc.html" class="hero-cat-btn">その他</a>
     </nav>
 
-    <div class="hero-search">
+        <div class="hero-search">
       <div class="hero-search-label">Search all works</div>
       <form class="hero-search-input" onsubmit="event.preventDefault(); doSearch();">
         <input type="text" id="home-search" placeholder="例: 消費税、国税通則法、相続税、ドイツ税法">
@@ -1236,7 +1236,7 @@ function renderItem(w, keyword) {
     (month ? '<span class="work-year-month">' + month + '月</span>' : '') + '</div>' +
     '<div><span class="work-kind ' + kindClass + '">' + escapeHtml(kind) + '</span></div>' +
     '<div class="work-content"><div class="work-title">' +
-    (w['リンク'] ? '<a href="' + w['リンク'] + '" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">' + title + '</a>' : title) + '</div>' +
+    (w[\'リンク\'] ? '<a href="' + w[\'リンク\'] + '" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">' + title + '</a>' : title) + '</div>' +
     (note ? '<div class="work-note">' + highlightKeyword(note, keyword) + '</div>' : '') +
     (metaParts.length ? '<div class="work-meta">' + metaParts.join('') + '</div>' : '') +
     (award ? '<div class="work-award">' + highlightKeyword(award, keyword) + '</div>' : '') +
@@ -1299,4 +1299,32 @@ function doSearch() {
     html += '<section class="subsection" style="margin-bottom:48px;">';
     html += '<h3 class="subsection-title" style="display:flex; justify-content:space-between; align-items:baseline;">';
     html += '<span>' + cat + '</span>';
- 
+    html += '<span style="font-family:\'EB Garamond\', serif; font-style:italic; font-size:14px; color:var(--ink-lighter); font-weight:400;">' + items.length + ' 件</span>';
+    html += '</h3>';
+    html += '<div class="subsection-en">' + CATEGORY_EN[cat] + '</div>';
+    html += '<div class="works-list">' + items.map(w => renderItem(w, keyword)).join('') + '</div>';
+    html += '<div style="text-align:right; padding:12px 0; font-size:13px;">';
+    html += '<a href="' + link + '" style="color:var(--navy); text-decoration:none; border-bottom:1px solid var(--rule);">';
+    html += cat + 'カテゴリー全体を見る →</a></div>';
+    html += '</section>';
+  }
+  
+  html += '</div></div>';
+  container.innerHTML = html;
+  container.style.display = 'block';
+  
+  // スクロール
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Enterキーでも検索
+document.getElementById('home-search').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    doSearch();
+  }
+});
+</script>
+
+</body>
+</html>
