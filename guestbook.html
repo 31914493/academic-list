@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>足跡・ご要望 | 三木義一 全業績</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   三木義一 全業績アーカイブ
+   Academic Institution Style — 学術機関風
+   =================================================================== */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #2d3142;
+  --ink-light: #4a4f5e;
+  --ink-lighter: #6c7085;
+  --ink-lightest: #a0a5b5;
+  --paper: #fafaf7;
+  --paper-warm: #f4f3ee;
+  --paper-cool: #f0f2f5;
+  --navy: #1e3a5f;
+  --navy-deep: #152947;
+  --navy-light: #2a4a7c;
+  --accent: #8b2332;
+  --accent-light: #a63e4e;
+  --gold: #a07c2c;
+  --gold-soft: #c4a457;
+  --rule: #d8d5ce;
+  --rule-soft: #e8e6e0;
+  --highlight: #fbf7e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Zen Kaku Gothic New", "游ゴシック", "Yu Gothic", "Noto Sans JP", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ヘッダー */
+.site-header {
+  background: var(--navy-deep);
+  color: var(--paper);
+  border-bottom: 4px solid var(--gold);
+}
+.header-top {
+  padding: 32px 40px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.header-top-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.site-title-group a { color: inherit; text-decoration: none; display: block; }
+.site-title {
+  font-family: "Shippori Mincho", serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.site-title-en {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold-soft);
+  letter-spacing: 0.1em;
+}
+.site-header-meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.05em;
+  text-align: right;
+  line-height: 1.8;
+}
+.main-nav {
+  padding: 0 40px;
+  background: var(--navy);
+}
+.nav-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+.main-nav a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 14px 18px;
+  display: block;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.main-nav a:hover { color: #fff; border-bottom-color: var(--gold-soft); }
+.main-nav a.current { color: #fff; border-bottom-color: var(--gold); font-weight: 500; }
+
+/* メインコンテンツ */
+main { min-height: 60vh; }
+.content-wrapper {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--ink-lighter);
+  margin-bottom: 40px;
+  letter-spacing: 0.05em;
+}
+.breadcrumb a { color: var(--ink-lighter); text-decoration: none; }
+.breadcrumb a:hover { color: var(--navy); }
+.breadcrumb-separator { margin: 0 8px; }
+
+.page-title-block { margin-bottom: 48px; }
+.page-title-en {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-lighter);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.page-title {
+  font-family: "Shippori Mincho", serif;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--navy-deep);
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--gold);
+}
+.page-subtitle {
+  font-size: 15px;
+  color: var(--ink-light);
+  line-height: 1.9;
+}
+
+/* 導入文 */
+.intro-box {
+  background: var(--highlight);
+  border-left: 4px solid var(--gold);
+  padding: 28px 32px;
+  margin-bottom: 64px;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 2;
+}
+
+/* 承認済みメッセージ一覧 */
+.messages-section { margin-bottom: 80px; }
+.section-heading {
+  font-family: "Shippori Mincho", serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--navy-deep);
+  letter-spacing: 0.06em;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-heading-en {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--ink-lightest);
+  letter-spacing: 0.1em;
+  margin-left: 12px;
+  font-weight: 400;
+}
+
+.message-card {
+  background: #fff;
+  border: 1px solid var(--rule-soft);
+  border-top: 3px solid var(--navy);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.message-card:hover { border-top-color: var(--gold); }
+.message-meta {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.message-name {
+  font-family: "Shippori Mincho", serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.message-date {
+  font-family: "EB Garamond", serif;
+  font-size: 13px;
+  color: var(--ink-lightest);
+  letter-spacing: 0.05em;
+}
+.message-body {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+/* メッセージなし */
+.no-messages {
+  text-align: center;
+  padding: 60px 40px;
+  color: var(--ink-lighter);
+  font-size: 14px;
+  border: 1px dashed var(--rule);
+  background: var(--paper-warm);
+}
+.no-messages-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+/* フォームセクション */
+.form-section { margin-bottom: 48px; }
+.form-note {
+  font-size: 13px;
+  color: var(--ink-lighter);
+  margin-bottom: 32px;
+  line-height: 1.8;
+  padding: 16px 20px;
+  background: var(--paper-cool);
+  border-radius: 4px;
+}
+
+.guestbook-form { display: flex; flex-direction: column; gap: 24px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.form-label .optional {
+  font-size: 11px;
+  color: var(--ink-lightest);
+  font-weight: 400;
+  margin-left: 6px;
+}
+.form-label .required {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 400;
+  margin-left: 6px;
+}
+.form-input, .form-textarea {
+  border: 1px solid var(--rule);
+  background: #fff;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  border-radius: 2px;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--navy-light);
+  box-shadow: 0 0 0 3px rgba(30,58,95,0.08);
+}
+.form-textarea { resize: vertical; min-height: 140px; line-height: 1.7; }
+
+.form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 20px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule-soft);
+  cursor: pointer;
+}
+.form-checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--navy);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form-checkbox-label {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  cursor: pointer;
+}
+.form-checkbox-label small {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-lighter);
+  margin-top: 4px;
+}
+
+/* スパム対策（ハニーポット） */
+.bot-field { display: none !important; }
+
+.form-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+.btn-submit {
+  background: var(--navy-deep);
+  color: var(--paper);
+  border: none;
+  padding: 14px 48px;
+  font-size: 15px;
+  font-family: inherit;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-submit:hover { background: var(--navy); transform: translateY(-1px); }
+.btn-submit:active { transform: translateY(0); }
+
+/* 送信完了メッセージ */
+.success-message {
+  display: none;
+  background: #f0f7f0;
+  border: 1px solid #a8d5a8;
+  border-left: 4px solid #4a9e4a;
+  padding: 24px 28px;
+  font-size: 15px;
+  color: #2d5a2d;
+  line-height: 1.9;
+}
+
+/* フッター */
+footer {
+  background: var(--navy-deep);
+  color: var(--paper);
+  padding: 48px 40px;
+  margin-top: 100px;
+  border-top: 4px solid var(--gold);
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-title {
+  font-family: "Shippori Mincho", serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.footer-sub {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(250,250,247,0.6);
+  letter-spacing: 0.05em;
+}
+.footer-meta {
+  font-size: 12px;
+  color: rgba(250,250,247,0.5);
+  text-align: right;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .header-top { padding: 24px 20px 16px; }
+  .main-nav { padding: 0 20px; }
+  .content-wrapper { padding: 40px 20px 80px; }
+  footer { padding: 40px 20px; }
+  .intro-box { padding: 20px 24px; }
+  .message-card { padding: 20px 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-top-inner">
+      <div class="site-title-group">
+        <a href="index.html">
+          <div class="site-title">三木義一 全業績</div>
+          <div class="site-title-en">MIKI Yoshikazu — Complete Works</div>
+        </a>
+      </div>
+      <div class="site-header-meta">
+        税法学者・弁護士<br>
+        立命館大学名誉教授
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="profile.html">プロフィール</a>
+      <a href="books.html">著書</a>
+      <a href="articles.html">学術論文</a>
+      <a href="opinions.html">意見書</a>
+      <a href="columns.html">新聞連載</a>
+      <a href="misc.html">その他</a>
+      <a href="links.html">関連リンク</a>
+      <a href="guestbook.html" class="current">足跡・ご要望</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="content-wrapper">
+
+    <div class="breadcrumb">
+      <a href="index.html">HOME</a>
+      <span class="breadcrumb-separator">/</span>
+      足跡・ご要望
+    </div>
+
+    <div class="page-title-block">
+      <div class="page-title-en">Visitors & Messages</div>
+      <h1 class="page-title">足跡・ご要望</h1>
+      <p class="page-subtitle">
+        このサイトをご覧いただいた方のひとことをお聞かせください。
+        ご要望・ご感想・研究上のご質問など、どうぞお気軽に。
+      </p>
+    </div>
+
+    <div class="intro-box">
+      お寄せいただいたメッセージは、私どもが確認した上で、ご本人の許可をいただいたものをこのページに掲載いたします。
+      三木義一本人への直接の返信は対応が難しい場合もございますが、できる限り内容を届けるよう努めます。
+      個人情報は掲載・公開に使用することはなく、他の目的には使用いたしません。
+    </div>
+
+    <!-- 承認済みメッセージ一覧 -->
+    <section class="messages-section">
+      <h2 class="section-heading">
+        お寄せいただいた声
+        <span class="section-heading-en">Published Messages</span>
+      </h2>
+
+      <!-- 承認済みメッセージをここに追加 -->
+      <!-- 例:
+      <div class="message-card">
+        <div class="message-meta">
+          <span class="message-name">税理士 匿名希望</span>
+          <span class="message-date">2026年5月</span>
+        </div>
+        <div class="message-body">意見書を拝読し、実務の参考にさせていただきました。...</div>
+      </div>
+      -->
+
+      <div class="no-messages">
+        <span class="no-messages-icon">✉</span>
+        まだ掲載されたメッセージはありません。<br>
+        最初のひとことをお寄せください。
+      </div>
+    </section>
+
+    <!-- 投稿フォーム -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        メッセージを送る
+        <span class="section-heading-en">Leave a Message</span>
+      </h2>
+
+      <div class="form-note">
+        ご入力いただいた内容は、管理者が確認後、公開の可否を判断いたします。
+        公開を希望されない場合はチェックを外してください。メールアドレスは公開されません。
+      </div>
+
+      <!-- Netlify Forms -->
+      <form
+        name="guestbook"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="guestbook-form"
+        id="guestbook-form"
+      >
+        <input type="hidden" name="form-name" value="guestbook">
+
+        <!-- ハニーポット（スパム対策） -->
+        <p class="bot-field">
+          <label>このフィールドは空のままにしてください: <input name="bot-field"></label>
+        </p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="visitor-name">
+              お名前<span class="optional">（任意・ペンネーム可）</span>
+            </label>
+            <input
+              type="text"
+              id="visitor-name"
+              name="name"
+              class="form-input"
+              placeholder="例：税理士 山田太郎 / 匿名希望"
+              maxlength="50"
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="visitor-email">
+              メールアドレス<span class="optional">（任意・公開されません）</span>
+            </label>
+            <input
+              type="email"
+              id="visitor-email"
+              name="email"
+              class="form-input"
+              placeholder="返信をご希望の場合"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="visitor-message">
+            メッセージ<span class="required">（必須）</span>
+          </label>
+          <textarea
+            id="visitor-message"
+            name="message"
+            class="form-textarea"
+            placeholder="ご感想・ご要望・ご質問など、どうぞお気軽に。"
+            required
+          ></textarea>
+        </div>
+
+        <label class="form-checkbox-group">
+          <input type="checkbox" name="allow-publish" value="公開可" checked>
+          <span class="form-checkbox-label">
+            このメッセージのページへの掲載を許可します
+            <small>チェックを外すと管理者のみが閲覧し、ページには掲載されません。</small>
+          </span>
+        </label>
+
+        <div class="form-submit-row">
+          <button type="submit" class="btn-submit">送信する</button>
+        </div>
+      </form>
+
+      <div class="success-message" id="success-message">
+        メッセージをお送りいただきありがとうございます。<br>
+        確認の上、掲載の可否をご連絡する場合がございます。
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">三木義一 全業績</div>
+      <div class="footer-sub">MIKI Yoshikazu — Complete Works</div>
+    </div>
+    <div class="footer-meta">
+      A Living Record of Japanese Tax Law Scholarship<br>
+      Established 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+// Netlify Forms の送信完了ページへのリダイレクトをインターセプトし、
+// 同ページ内に完了メッセージを表示する
+const form = document.getElementById('guestbook-form');
+const success = document.getElementById('success-message');
+
+if (form) {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const msg = form.querySelector('#visitor-message');
+    if (!msg || !msg.value.trim()) {
+      msg.focus();
+      return;
+    }
+    const data = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+    .then(() => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .catch(() => {
+      form.submit(); // フォールバック
+    });
+  });
+}
+</script>
+
+</body>
+</html>
