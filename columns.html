@@ -1060,6 +1060,61 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+
+// 京都新聞PDFダウンロード対応表（第01〜第50回）
+const PDF_FILES = {
+  277: 'pdfs/columns/kyoto-001.pdf',
+  278: 'pdfs/columns/kyoto-002.pdf',
+  282: 'pdfs/columns/kyoto-003.pdf',
+  283: 'pdfs/columns/kyoto-004.pdf',
+  284: 'pdfs/columns/kyoto-005.pdf',
+  285: 'pdfs/columns/kyoto-006.pdf',
+  289: 'pdfs/columns/kyoto-007.pdf',
+  290: 'pdfs/columns/kyoto-008.pdf',
+  291: 'pdfs/columns/kyoto-009.pdf',
+  292: 'pdfs/columns/kyoto-010.pdf',
+  293: 'pdfs/columns/kyoto-011.pdf',
+  298: 'pdfs/columns/kyoto-012.pdf',
+  299: 'pdfs/columns/kyoto-013.pdf',
+  300: 'pdfs/columns/kyoto-014.pdf',
+  302: 'pdfs/columns/kyoto-015.pdf',
+  303: 'pdfs/columns/kyoto-016.pdf',
+  304: 'pdfs/columns/kyoto-017.pdf',
+  305: 'pdfs/columns/kyoto-018.pdf',
+  309: 'pdfs/columns/kyoto-019.pdf',
+  310: 'pdfs/columns/kyoto-020.pdf',
+  311: 'pdfs/columns/kyoto-021.pdf',
+  312: 'pdfs/columns/kyoto-022.pdf',
+  313: 'pdfs/columns/kyoto-023.pdf',
+  315: 'pdfs/columns/kyoto-024.pdf',
+  316: 'pdfs/columns/kyoto-025.pdf',
+  317: 'pdfs/columns/kyoto-026.pdf',
+  318: 'pdfs/columns/kyoto-027.pdf',
+  320: 'pdfs/columns/kyoto-028.pdf',
+  321: 'pdfs/columns/kyoto-029.pdf',
+  322: 'pdfs/columns/kyoto-030.pdf',
+  323: 'pdfs/columns/kyoto-031.pdf',
+  324: 'pdfs/columns/kyoto-032.pdf',
+  328: 'pdfs/columns/kyoto-033.pdf',
+  329: 'pdfs/columns/kyoto-034.pdf',
+  330: 'pdfs/columns/kyoto-035.pdf',
+  331: 'pdfs/columns/kyoto-036.pdf',
+  334: 'pdfs/columns/kyoto-037.pdf',
+  335: 'pdfs/columns/kyoto-038.pdf',
+  336: 'pdfs/columns/kyoto-039.pdf',
+  337: 'pdfs/columns/kyoto-040.pdf',
+  339: 'pdfs/columns/kyoto-041.pdf',
+  340: 'pdfs/columns/kyoto-042.pdf',
+  341: 'pdfs/columns/kyoto-043.pdf',
+  342: 'pdfs/columns/kyoto-044.pdf',
+  348: 'pdfs/columns/kyoto-045.pdf',
+  349: 'pdfs/columns/kyoto-046.pdf',
+  350: 'pdfs/columns/kyoto-047.pdf',
+  352: 'pdfs/columns/kyoto-048.pdf',
+  353: 'pdfs/columns/kyoto-049.pdf',
+  354: 'pdfs/columns/kyoto-050.pdf'
+};
+
 function renderItem(w) {
   const year = w['年'];
   const month = w['月'];
@@ -1079,6 +1134,7 @@ function renderItem(w) {
       <div class="work-content">
         <div class="work-title">${title}</div>
         ${pub ? `<div class="work-meta"><span class="work-publication">${escapeHtml(pub)}</span></div>` : ''}
+        ${PDF_FILES[w['ID']] ? `<a href="${PDF_FILES[w['ID']]}" class="work-award" target="_blank">PDF を読む</a>` : ''}
       </div>
     </div>
   `;
