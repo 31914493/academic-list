@@ -1141,7 +1141,7 @@ function renderItem(w) {
 }
 
 const tokyo = WORKS_DATA.filter(w => String(w['種別']).includes('東京新聞'))
-  .sort((a, b) => ((b['年'] * 100) + (b['月'] || 0)) - ((a['年'] * 100) + (a['月'] || 0)));
+  .sort((a, b) => ((a['年'] * 100) + (a['月'] || 0)) - ((b['年'] * 100) + (b['月'] || 0)));
 const kyoto = WORKS_DATA.filter(w => String(w['種別']).includes('京都新聞'))
   .sort((a, b) => ((a['年'] * 100) + (a['月'] || 0)) - ((b['年'] * 100) + (b['月'] || 0)));
 
