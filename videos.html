@@ -292,9 +292,22 @@ footer {
 
 <main>
 
-  <!-- 動画一覧（RSS自動取得） -->
-  <div id="video-grid" class="video-grid">
-    <div class="loading-msg">動画を読み込んでいます…</div>
+  <!-- まさかの税金（日本編） -->
+  <div class="video-section">
+    <h2 class="video-section-title">まさかの税金</h2>
+    <p class="video-section-desc">日本の税制にまつわる「まさか」の話</p>
+    <div id="grid-japan" class="video-grid">
+      <div class="loading-msg">読み込んでいます…</div>
+    </div>
+  </div>
+
+  <!-- 新まさかの税金（世界編） -->
+  <div class="video-section">
+    <h2 class="video-section-title">新まさかの税金</h2>
+    <p class="video-section-desc">世界の税制にまつわる「まさか」の話</p>
+    <div id="grid-world" class="video-grid">
+      <div class="loading-msg">読み込んでいます…</div>
+    </div>
   </div>
 
   <!-- チャンネルリンク -->
@@ -309,9 +322,28 @@ footer {
 (function() {
   var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
   var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  // CORSプロキシ経由でYouTube RSSをXMLのまま取得してパース
   var PROXY_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS_URL);
-  var grid = document.getElementById('video-grid');
+  var gridJapan = document.getElementById('grid-japan');
+  var gridWorld = document.getElementById('grid-world');
+
+  // カード要素を生成
+  function makeCard(vid, title, date) {
+    var thumb = 'https://img.youtube.com/vi/' + vid + '/mqdefault.jpg';
+    var url = 'https://www.youtube.com/watch?v=' + vid;
+    var card = document.createElement('a');
+    card.href = url;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+    card.className = 'video-card';
+    card.style.textDecoration = 'none';
+    card.innerHTML =
+      '<div class="video-thumb"><img src="' + thumb + '" alt="' + title + '" loading="lazy"></div>' +
+      '<div class="video-info">' +
+        '<div class="video-title">' + title + '</div>' +
+        '<div class="video-tag">' + date + '</div>' +
+      '</div>';
+    return card;
+  }
 
   fetch(PROXY_URL)
     .then(function(r) { return r.text(); })
@@ -319,17 +351,16 @@ footer {
       var parser = new DOMParser();
       var xml = parser.parseFromString(str, 'text/xml');
       var entries = xml.querySelectorAll('entry');
-      if (!entries || entries.length === 0) {
-        grid.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
-        return;
-      }
-      grid.innerHTML = '';
+
+      var countJapan = 0, countWorld = 0;
+      gridJapan.innerHTML = '';
+      gridWorld.innerHTML = '';
+
       entries.forEach(function(entry) {
         // videoID取得
         var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
         var vid = videoId ? videoId.textContent : '';
         if (!vid) {
-          // linkから抽出
           var link = entry.querySelector('link');
           var href = link ? (link.getAttribute('href') || '') : '';
           var m = href.match(/[?&]v=([^&]+)/);
@@ -341,26 +372,25 @@ footer {
         var title = titleEl ? titleEl.textContent : '';
         var publishedEl = entry.querySelector('published');
         var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
-        var thumb = 'https://img.youtube.com/vi/' + vid + '/mqdefault.jpg';
-        var url = 'https://www.youtube.com/watch?v=' + vid;
 
-        var card = document.createElement('a');
-        card.href = url;
-        card.target = '_blank';
-        card.rel = 'noopener noreferrer';
-        card.className = 'video-card';
-        card.style.textDecoration = 'none';
-        card.innerHTML =
-          '<div class="video-thumb"><img src="' + thumb + '" alt="' + title + '" loading="lazy"></div>' +
-          '<div class="video-info">' +
-            '<div class="video-title">' + title + '</div>' +
-            '<div class="video-tag">' + date + '</div>' +
-          '</div>';
-        grid.appendChild(card);
+        // シリーズ振り分け
+        if (title.indexOf('新まさかの税金') !== -1) {
+          gridWorld.appendChild(makeCard(vid, title, date));
+          countWorld++;
+        } else if (title.indexOf('まさかの税金') !== -1) {
+          gridJapan.appendChild(makeCard(vid, title, date));
+          countJapan++;
+        }
+        // 該当しないシリーズはスキップ
       });
+
+      if (countJapan === 0) gridJapan.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
+      if (countWorld === 0) gridWorld.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
     })
     .catch(function() {
-      grid.innerHTML = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
+      var msg = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
+      gridJapan.innerHTML = msg;
+      gridWorld.innerHTML = msg;
     });
 })();
 </script>
