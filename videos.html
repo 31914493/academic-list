@@ -158,8 +158,15 @@ main {
 /* 動画グリッド */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* ローディング */
+.loading-msg {
+  color: var(--ink-lighter);
+  font-size: 14px;
+  padding: 40px 0;
 }
 
 /* 動画カード */
@@ -168,35 +175,37 @@ main {
   border: 1px solid var(--rule);
   border-radius: 4px;
   overflow: hidden;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: block;
 }
 .video-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
 }
-.video-embed {
-  position: relative;
+.video-thumb {
   width: 100%;
-  padding-top: 177.78%; /* 9:16 縦長 */
+  aspect-ratio: 16/9;
+  overflow: hidden;
   background: #000;
 }
-.video-embed iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: none;
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .video-info {
-  padding: 14px 16px;
+  padding: 12px 14px;
 }
 .video-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ink-soft);
   line-height: 1.5;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .video-tag {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--ink-lightest);
 }
 
@@ -281,49 +290,10 @@ footer {
 
 <main>
 
-  <!-- 日本編 -->
-  <section class="video-section">
-    <h2 class="video-section-title">日本編</h2>
-    <p class="video-section-desc">日本の税金にまつわる「まさか」を、身近な事例からわかりやすく解説。</p>
-    <div class="video-grid">
-
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/MoVqb9wnHo8"
-            title="交通費と社会保険"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <div class="video-title">交通費と社会保険</div>
-          <div class="video-tag">日本編</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 世界編 -->
-  <section class="video-section">
-    <h2 class="video-section-title">世界編</h2>
-    <p class="video-section-desc">世界各国の税制・税務裁判の「まさか」を紹介。</p>
-    <div class="video-grid">
-
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/EnoPPxd8DqM"
-            title="イギリス・税金裁判の数"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <div class="video-title">イギリス・税金裁判の数</div>
-          <div class="video-tag">世界編 — イギリス</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  <!-- 動画一覧（RSS自動取得） -->
+  <div id="video-grid" class="video-grid">
+    <div class="loading-msg">動画を読み込んでいます…</div>
+  </div>
 
   <!-- チャンネルリンク -->
   <div class="channel-link-bar">
@@ -332,6 +302,49 @@ footer {
   </div>
 
 </main>
+
+<script>
+(function() {
+  var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
+  var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL) + '&count=50';
+  var grid = document.getElementById('video-grid');
+
+  fetch(API_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.items || data.items.length === 0) {
+        grid.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
+        return;
+      }
+      grid.innerHTML = '';
+      data.items.forEach(function(item) {
+        // videoIDを抽出
+        var match = item.link.match(/[?&]v=([^&]+)/) || item.link.match(/shorts\/([^?]+)/);
+        if (!match) return;
+        var vid = match[1];
+        var thumb = 'https://img.youtube.com/vi/' + vid + '/mqdefault.jpg';
+        var date = item.pubDate ? item.pubDate.slice(0, 10) : '';
+        var card = document.createElement('a');
+        card.href = item.link;
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        card.className = 'video-card';
+        card.style.textDecoration = 'none';
+        card.innerHTML =
+          '<div class="video-thumb"><img src="' + thumb + '" alt="' + item.title + '" loading="lazy"></div>' +
+          '<div class="video-info">' +
+            '<div class="video-title">' + item.title + '</div>' +
+            '<div class="video-tag">' + date + '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    })
+    .catch(function() {
+      grid.innerHTML = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
+    });
+})();
+</script>
 
 <footer>
   <p>© 三木義一 研究と実務の記録</p>
