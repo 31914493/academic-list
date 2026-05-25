@@ -309,34 +309,51 @@ footer {
 (function() {
   var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
   var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  var API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL) + '&count=50';
+  // CORSプロキシ経由でYouTube RSSをXMLのまま取得してパース
+  var PROXY_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS_URL);
   var grid = document.getElementById('video-grid');
 
-  fetch(API_URL)
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (!data.items || data.items.length === 0) {
+  fetch(PROXY_URL)
+    .then(function(r) { return r.text(); })
+    .then(function(str) {
+      var parser = new DOMParser();
+      var xml = parser.parseFromString(str, 'text/xml');
+      var entries = xml.querySelectorAll('entry');
+      if (!entries || entries.length === 0) {
         grid.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
         return;
       }
       grid.innerHTML = '';
-      data.items.forEach(function(item) {
-        // videoIDを抽出
-        var match = item.link.match(/[?&]v=([^&]+)/) || item.link.match(/shorts\/([^?]+)/);
-        if (!match) return;
-        var vid = match[1];
+      entries.forEach(function(entry) {
+        // videoID取得
+        var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
+        var vid = videoId ? videoId.textContent : '';
+        if (!vid) {
+          // linkから抽出
+          var link = entry.querySelector('link');
+          var href = link ? (link.getAttribute('href') || '') : '';
+          var m = href.match(/[?&]v=([^&]+)/);
+          if (m) vid = m[1];
+        }
+        if (!vid) return;
+
+        var titleEl = entry.querySelector('title');
+        var title = titleEl ? titleEl.textContent : '';
+        var publishedEl = entry.querySelector('published');
+        var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
         var thumb = 'https://img.youtube.com/vi/' + vid + '/mqdefault.jpg';
-        var date = item.pubDate ? item.pubDate.slice(0, 10) : '';
+        var url = 'https://www.youtube.com/watch?v=' + vid;
+
         var card = document.createElement('a');
-        card.href = item.link;
+        card.href = url;
         card.target = '_blank';
         card.rel = 'noopener noreferrer';
         card.className = 'video-card';
         card.style.textDecoration = 'none';
         card.innerHTML =
-          '<div class="video-thumb"><img src="' + thumb + '" alt="' + item.title + '" loading="lazy"></div>' +
+          '<div class="video-thumb"><img src="' + thumb + '" alt="' + title + '" loading="lazy"></div>' +
           '<div class="video-info">' +
-            '<div class="video-title">' + item.title + '</div>' +
+            '<div class="video-title">' + title + '</div>' +
             '<div class="video-tag">' + date + '</div>' +
           '</div>';
         grid.appendChild(card);
