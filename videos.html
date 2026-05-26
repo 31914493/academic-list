@@ -287,25 +287,43 @@ footer {
 
 <div class="page-header">
   <h1 class="page-title">動画</h1>
-  <p class="page-subtitle">新まさかの税金 — 日本編・世界編</p>
+  <p class="page-subtitle">新まさかの税金・やっぱり知りたい雑学</p>
 </div>
 
 <main>
 
-  <!-- まさかの税金（日本編） -->
+  <!-- 最新動画（チャンネル全体から最新3本） -->
   <div class="video-section">
-    <h2 class="video-section-title">まさかの税金</h2>
+    <h2 class="video-section-title">最新動画</h2>
+    <p class="video-section-desc">新着順</p>
+    <div id="grid-latest" class="video-grid">
+      <div class="loading-msg">読み込んでいます…</div>
+    </div>
+  </div>
+
+  <!-- 新まさかの税金・日本編 -->
+  <div class="video-section">
+    <h2 class="video-section-title">新まさかの税金・日本編</h2>
     <p class="video-section-desc">日本の税制にまつわる「まさか」の話</p>
     <div id="grid-japan" class="video-grid">
       <div class="loading-msg">読み込んでいます…</div>
     </div>
   </div>
 
-  <!-- 新まさかの税金（世界編） -->
+  <!-- 新まさかの税金・世界編 -->
   <div class="video-section">
-    <h2 class="video-section-title">新まさかの税金</h2>
+    <h2 class="video-section-title">新まさかの税金・世界編</h2>
     <p class="video-section-desc">世界の税制にまつわる「まさか」の話</p>
     <div id="grid-world" class="video-grid">
+      <div class="loading-msg">読み込んでいます…</div>
+    </div>
+  </div>
+
+  <!-- やっぱり知りたい雑学 -->
+  <div class="video-section">
+    <h2 class="video-section-title">やっぱり知りたい雑学</h2>
+    <p class="video-section-desc">ドーキンス・世界の童話・ブラック企業戦記など</p>
+    <div id="grid-misc" class="video-grid">
       <div class="loading-msg">読み込んでいます…</div>
     </div>
   </div>
@@ -320,11 +338,15 @@ footer {
 
 <script>
 (function() {
+  var PROXY = 'https://api.allorigins.win/raw?url=';
   var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
-  var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  var PROXY_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS_URL);
-  var gridJapan = document.getElementById('grid-japan');
-  var gridWorld = document.getElementById('grid-world');
+
+  // プレイリストID
+  var PLAYLISTS = [
+    { id: 'PLX9z_-64qwVr_hpm2E0NDsla8I-MVS1g0', gridId: 'grid-japan' },
+    { id: 'PLX9z_-64qwVpctgx197lC-zWfig5YIuzg', gridId: 'grid-world' },
+    { id: 'PLX9z_-64qwVoyuVvbx5b0rux_BHY8nsF1', gridId: 'grid-misc'  }
+  ];
 
   // カード要素を生成
   function makeCard(vid, title, date) {
@@ -345,53 +367,62 @@ footer {
     return card;
   }
 
-  fetch(PROXY_URL)
+  // RSS XML をパースしてエントリー配列を返す
+  function parseEntries(str) {
+    var parser = new DOMParser();
+    var xml = parser.parseFromString(str, 'text/xml');
+    return Array.from(xml.querySelectorAll('entry'));
+  }
+
+  // エントリーからカードを生成してグリッドに追加
+  function fillGrid(gridEl, entries) {
+    gridEl.innerHTML = '';
+    var count = 0;
+    entries.forEach(function(entry) {
+      var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
+      var vid = videoId ? videoId.textContent : '';
+      if (!vid) {
+        var link = entry.querySelector('link');
+        var href = link ? (link.getAttribute('href') || '') : '';
+        var m = href.match(/[?&]v=([^&]+)/);
+        if (m) vid = m[1];
+      }
+      if (!vid) return;
+      var titleEl = entry.querySelector('title');
+      var title = titleEl ? titleEl.textContent : '';
+      var publishedEl = entry.querySelector('published');
+      var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
+      gridEl.appendChild(makeCard(vid, title, date));
+      count++;
+    });
+    if (count === 0) gridEl.innerHTML = '<p class="loading-msg">動画が追加されていません。</p>';
+  }
+
+  // 最新3本：チャンネルRSSから取得
+  var latestGrid = document.getElementById('grid-latest');
+  fetch(PROXY + encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID))
     .then(function(r) { return r.text(); })
     .then(function(str) {
-      var parser = new DOMParser();
-      var xml = parser.parseFromString(str, 'text/xml');
-      var entries = xml.querySelectorAll('entry');
-
-      var countJapan = 0, countWorld = 0;
-      gridJapan.innerHTML = '';
-      gridWorld.innerHTML = '';
-
-      entries.forEach(function(entry) {
-        // videoID取得
-        var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
-        var vid = videoId ? videoId.textContent : '';
-        if (!vid) {
-          var link = entry.querySelector('link');
-          var href = link ? (link.getAttribute('href') || '') : '';
-          var m = href.match(/[?&]v=([^&]+)/);
-          if (m) vid = m[1];
-        }
-        if (!vid) return;
-
-        var titleEl = entry.querySelector('title');
-        var title = titleEl ? titleEl.textContent : '';
-        var publishedEl = entry.querySelector('published');
-        var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
-
-        // シリーズ振り分け
-        if (title.indexOf('新まさかの税金') !== -1) {
-          gridWorld.appendChild(makeCard(vid, title, date));
-          countWorld++;
-        } else if (title.indexOf('まさかの税金') !== -1) {
-          gridJapan.appendChild(makeCard(vid, title, date));
-          countJapan++;
-        }
-        // 該当しないシリーズはスキップ
-      });
-
-      if (countJapan === 0) gridJapan.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
-      if (countWorld === 0) gridWorld.innerHTML = '<p class="loading-msg">動画が見つかりませんでした。</p>';
+      var entries = parseEntries(str).slice(0, 3);
+      fillGrid(latestGrid, entries);
     })
     .catch(function() {
-      var msg = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
-      gridJapan.innerHTML = msg;
-      gridWorld.innerHTML = msg;
+      latestGrid.innerHTML = '<p class="loading-msg">読み込みに失敗しました。</p>';
     });
+
+  // 各プレイリストを取得して表示
+  PLAYLISTS.forEach(function(pl) {
+    var gridEl = document.getElementById(pl.gridId);
+    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + pl.id;
+    fetch(PROXY + encodeURIComponent(rssUrl))
+      .then(function(r) { return r.text(); })
+      .then(function(str) {
+        fillGrid(gridEl, parseEntries(str));
+      })
+      .catch(function() {
+        gridEl.innerHTML = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
+      });
+  });
 })();
 </script>
 
