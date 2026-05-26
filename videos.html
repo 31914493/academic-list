@@ -338,15 +338,13 @@ footer {
 
 <script>
 (function() {
-  var PROXY = 'https://api.allorigins.win/raw?url=';
-  var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
-
-  // プレイリストID
-  var PLAYLISTS = [
-    { id: 'PLX9z_-64qwVr_hpm2E0NDsla8I-MVS1g0', gridId: 'grid-japan' },
-    { id: 'PLX9z_-64qwVpctgx197lC-zWfig5YIuzg', gridId: 'grid-world' },
-    { id: 'PLX9z_-64qwVoyuVvbx5b0rux_BHY8nsF1', gridId: 'grid-misc'  }
+  // フォールバック付きCORSプロキシ一覧
+  var PROXIES = [
+    'https://api.allorigins.win/raw?url=',
+    'https://corsproxy.io/?',
+    'https://api.codetabs.com/v1/proxy?quest='
   ];
+  var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
 
   // カード要素を生成
   function makeCard(vid, title, date) {
@@ -374,55 +372,92 @@ footer {
     return Array.from(xml.querySelectorAll('entry'));
   }
 
-  // エントリーからカードを生成してグリッドに追加
-  function fillGrid(gridEl, entries) {
+  // エントリーからvideoIDとタイトルと日付を抽出
+  function extractInfo(entry) {
+    var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
+    var vid = videoId ? videoId.textContent : '';
+    if (!vid) {
+      var link = entry.querySelector('link');
+      var href = link ? (link.getAttribute('href') || '') : '';
+      var m = href.match(/[?&]v=([^&]+)/);
+      if (m) vid = m[1];
+    }
+    var titleEl = entry.querySelector('title');
+    var title = titleEl ? titleEl.textContent : '';
+    var publishedEl = entry.querySelector('published');
+    var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
+    return { vid: vid, title: title, date: date };
+  }
+
+  // グリッドにカードを追加
+  function fillGrid(gridEl, infos) {
     gridEl.innerHTML = '';
     var count = 0;
-    entries.forEach(function(entry) {
-      var videoId = entry.querySelector('videoId') || entry.querySelector('*|videoId');
-      var vid = videoId ? videoId.textContent : '';
-      if (!vid) {
-        var link = entry.querySelector('link');
-        var href = link ? (link.getAttribute('href') || '') : '';
-        var m = href.match(/[?&]v=([^&]+)/);
-        if (m) vid = m[1];
-      }
-      if (!vid) return;
-      var titleEl = entry.querySelector('title');
-      var title = titleEl ? titleEl.textContent : '';
-      var publishedEl = entry.querySelector('published');
-      var date = publishedEl ? publishedEl.textContent.slice(0, 10) : '';
-      gridEl.appendChild(makeCard(vid, title, date));
+    infos.forEach(function(info) {
+      if (!info.vid) return;
+      gridEl.appendChild(makeCard(info.vid, info.title, info.date));
       count++;
     });
     if (count === 0) gridEl.innerHTML = '<p class="loading-msg">動画が追加されていません。</p>';
   }
 
-  // 最新3本：チャンネルRSSから取得
-  var latestGrid = document.getElementById('grid-latest');
-  fetch(PROXY + encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID))
-    .then(function(r) { return r.text(); })
+  // プロキシを順番に試してフェッチ
+  function fetchWithFallback(url, proxies, index) {
+    if (index >= proxies.length) return Promise.reject(new Error('all proxies failed'));
+    return fetch(proxies[index] + encodeURIComponent(url))
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function(str) {
+        // 空またはエラーXMLなら次のプロキシを試す
+        if (!str || str.indexOf('<entry>') === -1) throw new Error('empty');
+        return str;
+      })
+      .catch(function() {
+        return fetchWithFallback(url, proxies, index + 1);
+      });
+  }
+
+  var RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var latestGrid  = document.getElementById('grid-latest');
+  var gridJapan   = document.getElementById('grid-japan');
+  var gridWorld   = document.getElementById('grid-world');
+  var gridMisc    = document.getElementById('grid-misc');
+  var errMsg = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
+
+  // チャンネルRSS一本取得 → キーワードで4セクションに振り分け
+  fetchWithFallback(RSS_URL, PROXIES, 0)
     .then(function(str) {
-      var entries = parseEntries(str).slice(0, 3);
-      fillGrid(latestGrid, entries);
+      var entries = parseEntries(str);
+      var infos = entries.map(extractInfo);
+
+      // 最新3本
+      fillGrid(latestGrid, infos.slice(0, 3));
+
+      // キーワード振り分け
+      var japan = [], world = [], misc = [];
+      infos.forEach(function(info) {
+        var t = info.title;
+        if (t.indexOf('新まさかの税金') !== -1) {
+          world.push(info);
+        } else if (t.indexOf('まさかの税金') !== -1) {
+          japan.push(info);
+        } else if (t.indexOf('世界の童話') !== -1 || t.indexOf('ブラック企業戦記') !== -1 || t.indexOf('ドーキンス') !== -1) {
+          misc.push(info);
+        }
+      });
+
+      fillGrid(gridJapan, japan);
+      fillGrid(gridWorld, world);
+      fillGrid(gridMisc,  misc);
     })
     .catch(function() {
       latestGrid.innerHTML = '<p class="loading-msg">読み込みに失敗しました。</p>';
+      gridJapan.innerHTML  = errMsg;
+      gridWorld.innerHTML  = errMsg;
+      gridMisc.innerHTML   = errMsg;
     });
-
-  // 各プレイリストを取得して表示
-  PLAYLISTS.forEach(function(pl) {
-    var gridEl = document.getElementById(pl.gridId);
-    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + pl.id;
-    fetch(PROXY + encodeURIComponent(rssUrl))
-      .then(function(r) { return r.text(); })
-      .then(function(str) {
-        fillGrid(gridEl, parseEntries(str));
-      })
-      .catch(function() {
-        gridEl.innerHTML = '<p class="loading-msg">読み込みに失敗しました。<a href="https://www.youtube.com/@miki68" target="_blank">YouTubeで見る</a></p>';
-      });
-  });
 })();
 </script>
 
