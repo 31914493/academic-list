@@ -338,10 +338,11 @@ footer {
 
 <script>
 (function() {
-  // フォールバック付きCORSプロキシ一覧
+  // フォールバック付きCORSプロキシ一覧（信頼性順）
   var PROXIES = [
-    'https://api.allorigins.win/raw?url=',
     'https://corsproxy.io/?',
+    'https://api.allorigins.win/raw?url=',
+    'https://thingproxy.freeboard.io/fetch/',
     'https://api.codetabs.com/v1/proxy?quest='
   ];
   var CHANNEL_ID = 'UCqjfIEklXguTVxLFTzsKbzA';
