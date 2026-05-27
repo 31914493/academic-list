@@ -436,16 +436,19 @@ footer {
       fillGrid(latestGrid, infos.slice(0, 3));
 
       // キーワード振り分け
+      // 「まさかの税金」（旧）は著書名と重複するため表示しない
       var japan = [], world = [], misc = [];
       infos.forEach(function(info) {
         var t = info.title;
-        if (t.indexOf('新まさかの税金') !== -1) {
-          world.push(info);
-        } else if (t.indexOf('まさかの税金') !== -1) {
+        if (t.indexOf('新まさかの税金・日本編') !== -1 || t.indexOf('新まさかの税金｜日本編') !== -1) {
           japan.push(info);
+        } else if (t.indexOf('新まさかの税金') !== -1) {
+          // 移行中タイトルも含め世界編に表示
+          world.push(info);
         } else if (t.indexOf('世界の童話') !== -1 || t.indexOf('ブラック企業戦記') !== -1 || t.indexOf('ドーキンス') !== -1) {
           misc.push(info);
         }
+        // 「まさかの税金」のみ（新なし）はスキップ
       });
 
       fillGrid(gridJapan, japan);
